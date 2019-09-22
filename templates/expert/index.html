@@ -33,11 +33,14 @@
             <p>Вкладка предназначенная для ценностного анализа стоимости добычи нефтерождения</p>
             <div class="profit_block">
                 <h3>Прибыль</h3>
-                <p>Суммарная возможная выручка:</p>
-                <p class="price">{{ profitCost }} Руб.</p>
-                <p class="price">{{ profitСostDollar }} $</p>
-
-                <div id="profit_exp">
+                <div class="flex-container-2">
+                    <div class="first_fc_2">
+                        <p>Суммарная возможная выручка:</p>
+                        <p class="price">{{ profitCost }} Руб.</p>
+                        <p class="price">{{ profitСostDollar }} $</p>
+                    </div>
+                    <div class="second_fc_2" id="profit_exp">
+                    </div>
                 </div>
 
             </div>
@@ -104,7 +107,7 @@
             } );
 
             $('#select_well').on('change', function () {
-               $(this).closest('form').submit();
+                $(this).closest('form').submit();
             });
 
             var json_string = unescape("{{jsonSearch | safe | escapejs}}");
@@ -155,6 +158,9 @@
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.y:.1f} Руб.</b>'
                 },
+                colors: [
+                    '#197a56', '#32c77f'
+                ],
                 plotOptions: {
                     pie: {
                         dataLabels: {

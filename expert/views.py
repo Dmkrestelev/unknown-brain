@@ -1,7 +1,12 @@
 import json
+import os
 
+import pandas as pd
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 from django.shortcuts import render_to_response
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
 
 
 def get_data(well=None):
@@ -111,6 +116,16 @@ def index(request):
     return render_to_response('expert/index.html', context)
 
 
+def handle_uploaded_file(f):
+    with open('tmp/test.xlsx', 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
+
+@csrf_exempt
 def load(request):
     context = {}
+    if request.method == 'POST':
+        handle_uploaded_file(request.FILES['file'])
+
     return render_to_response('expert/load.html', context)

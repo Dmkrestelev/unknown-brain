@@ -18,7 +18,7 @@ table {
     text-align: center;
 }
 th, td:first-child {
-    background: #AFCDE7;
+    background: #197a56;
     color: white;
     padding: 10px 20px;
 }
@@ -28,7 +28,7 @@ th, td {
     border-color: white;
 }
 td {
-    background: #D8E6F3;
+    background: #32c77f;
 }
 th:first-child, td:first-child {
     text-align: left;
@@ -115,8 +115,18 @@ p.price {
 }
 #profit_exp {
     height: 300px;
-    width: 700px;
+    width: 800px;
 }
 .first {
     height: 100%;
+}
+.flex-container-2 {
+    display: flex;
+    padding: 0!important;
+}
+.first_fc_2 {
+    flex-grow: 5;
+}
+.second_fc_2 {
+    flex-grow: 5;
 }
