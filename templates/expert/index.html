@@ -1,98 +1,184 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div id="tabs">
-        <ul class="menu">
-            <li><a href="#tabs-1">Эксперт</a></li>
-            <li><a href="#tabs-2">Менеджер</a></li>
-        </ul>
-        <div id="tabs-1">
-            <h1>Эксперт</h1>
-            <p>Вкладка предназначенная для экспертного анализа месторождения нефти</p>
-            <form method="get">
-                <label for="well">Выберите скважину</label>
-                <select name="well" id="select_well">
-                    <option value="1">1 скважина</option>
-                    <option value="2">2 скважина</option>
-                    <option value="3">3 скважина</option>
-                </select>
-                {% csrf_token %}
-            </form>
-            <div>
-                {% for item in data %}
-                    {{ item.percent }}
-                    <hr>
-                {% empty %}
-                    <p>There are no athletes. Only computer programmers.</p>
-                {% endfor %}
+    <div id="tabs__">
+        <div id="menu">
+            <div class="logo">
+                <h2>Unknown brain</h2>
+                <img src="https://image-store.slidesharecdn.com/bee2a509-525d-4c3e-a348-ffefd1333e0f-original.jpeg" class="center">
             </div>
+            <div class="tabs">
+                <div class="link-1"><span class="center">Эксперт</span></div>
+                <div class="link-2 active"><span class="center">Менеджер</span></div>
+                <div><span class="center"><a href="expert/load/">Загрузка Excel</a></span></div>
+            </div>
+            <div class="footer">МФТИ, 2019</div>
         </div>
-
-        <div id="tabs-2">
-            <h1>Менеджер</h1>
-            <p>Вкладка предназначенная для ценностного анализа стоимости добычи нефтерождения</p>
-            <div class="profit_block">
-                <h3>Прибыль</h3>
-                <div class="flex-container-2">
-                    <div class="first_fc_2">
-                        <p>Суммарная возможная выручка:</p>
-                        <p class="price">{{ profitCost }} Руб.</p>
-                        <p class="price">{{ profitСostDollar }} $</p>
-                    </div>
-                    <div class="second_fc_2" id="profit_exp">
-                    </div>
-                </div>
-
-            </div>
-            <div class="flex-container">
-                <div class="first">
-                    <h3>Выручка</h3>
-                    <p>Суммарная возможная выручка:</p>
-                    <p class="price">{{ cost }} Руб.</p>
-                    <p class="price">{{ costDollar }} $</p>
-                    <p>Общая длинна месторождения</p>
-                    <p class="price">{{ height }} м</p>
-                    <p>Цена нефти за 1 тонну</p>
-                    <p class="price">{{ OilPrice }} руб</p>
-                    <p>Преимущественный тип нефти</p>
-                    <p class="price">{{ type }} </p>
-                </div>
-                <div class="second">
-                    <h3>Затраты</h3>
-                    <p>Суммарные возможные затраты:</p>
-                    <p class="price">{{ exp }} Руб.</p>
-                    <p class="price">{{ expDollar }} $</p>
-                    <p>Количество необходимых исследований и общая статистика по стоимости анализа и аналитики возможности обнаружения нефти</p>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Тип исследования</th>
-                            <th>Количество исследований</th>
-                            <th>Стоимость</th>
-                            <th>Стоимость в сумме</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for search in searchs.data %}
-                            <tr>
-                                <td>{{ search.name }}</td>
-                                <td>{{ search.count }}</td>
-                                <td>{{ search.cost }}</td>
-                                <td>{{ search.y }}</td>
-                            </tr>
-                        {% empty %}
-                            <p>There are no athletes. Only computer programmers.</p>
+        <div id="tabs-1">
+            <div class="container">
+                <h1>Эксперт</h1>
+                <p>Вкладка предназначенная для экспертного анализа месторождения нефти</p>
+                <form method="get">
+                    <label for="well">Выберите скважину</label>
+                    <select name="well" class="select_well">
+                        <option selected>Выберите скважину</option>
+                        {% for id in ids %}
+                            <option value="{{ id }}">{{ id }} скважина</option>
                         {% endfor %}
-                        <tr>
-                            <td>Сумма</td>
-                            <td></td>
-                            <td></td>
-                            <td>{{ searchs.allSum }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <hr>
-                    <div id="additional_info">
+                    </select>
+                    {% csrf_token %}
+                </form>
+                <div id="graph_wrap">
+                    <div class="setka">
+                        <svg width="100%" height="100%" viewBox="0 0 350 601" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="350" height="601" fill="#E5E5E5"/>
+                            <path d="M350 0.180054H0V600.18H350V0.180054Z" fill="white"/>
+                            <path d="M52 0L52 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M91 0L91 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M71 0L71 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M111 0L111 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M150 0L150 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M130 0L130 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M169 0L169 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M208 0L208 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M188 0L188 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M228 0L228 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M267 0L267 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M247 0L247 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M286 0L286 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M325 0L325 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M305 0L305 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 480.3H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 460.29H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 440.27H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 420.25H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 400.23H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 380.21H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 360.19H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 340.17H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 320.15H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 300.13H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 280.11H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 260.1H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 240.08H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 220.06H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 200.04H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 180.02H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 160H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 139.98H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 119.96H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 99.9399H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 79.92H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 59.9H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 39.89H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 19.87H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 600.13H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 580.11H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 560.1H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 540.08H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M32 0L32 600.001" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 520.06H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M0 500.04H350" stroke="black" stroke-opacity="0.29" stroke-width="0.1"/>
+                            <path d="M11.6465 600.35C11.8418 600.55 12.1584 600.55 12.3537 600.35L15.5356 597.17C15.7309 596.98 15.7309 596.66 15.5356 596.46C15.3404 596.27 15.0238 596.27 14.8285 596.46L12.0001 599.29L9.17167 596.46C8.97641 596.27 8.65983 596.27 8.46457 596.46C8.2693 596.66 8.2693 596.98 8.46457 597.17L11.6465 600.35ZM11.5001 0V600H12.5001V0H11.5001Z" fill="black"/>
+                        </svg>
+                    </div>
+                    <div id="graph"></div>
+                </div>
+                <div id="info"><div class="text"></div></div>
+            </div>
+            {#            <div>#}
+            {#                {% for item in data %}#}
+            {#                    {{ item.percent }}#}
+            {#                    <hr>#}
+            {#                {% empty %}#}
+            {#                    <p>There are no athletes. Only computer programmers.</p>#}
+            {#                {% endfor %}#}
+            {#            </div>#}
+        </div>
+        <div id="tabs-2">
+            <div class="container">
+                <div class="tab2-container">
+                    <h1>Менеджер</h1>
+                    <p>Вкладка предназначенная для ценностного анализа стоимости добычи нефтерождения</p>
+                    <form method="get">
+                        <label for="well">Выберите скважину</label>
+                        <select name="well" class="select_well">
+                            <option selected>Выберите скважину</option>
+                            {% for id in ids %}
+                                <option value="{{ id }}">{{ id }} скважина</option>
+                            {% endfor %}
+                        </select>
+                        {% csrf_token %}
+                    </form>
+                    <div class="profit_block text">
+                        <h3>Прибыль</h3>
+                        <div class="flex-container-2">
+                            <div class="first_fc_2">
+                                <p>Суммарная возможная выручка:</p>
+                                <p class="price">{{ profitCost }} Руб.</p>
+                                <p class="price">{{ profitСostDollar }} $</p>
+                            </div>
+                            <div class="second_fc_2" id="profit_exp">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="flex-container">
+                        <div class="first text">
+                            <h3>Выручка</h3>
+                            <p>Суммарная возможная выручка:</p>
+                            <p class="price">{{ cost }} Руб.</p>
+                            <p class="price">{{ costDollar }} $</p>
+                            <p>Общая длинна нефтяного пласта</p>
+                            <p class="price">{{ h }} м</p>
+                            <p>Цена нефти за 1 тонну</p>
+                            <p class="price">{{ OilPrice }} руб</p>
+                            <p>Преимущественный тип породы</p>
+                            <p class="price">{{ type }} </p>
+                        </div>
+                        <div class="second text">
+                            <h3>Затраты</h3>
+                            <p>Общая длинна исследований</p>
+                            <p class="price">{{ height }} м</p>
+                            <p>Суммарные возможные затраты (Оптимизированные):</p>
+                            <p class="price">{{ exp }} Руб.</p>
+                            <p class="price">{{ expDollar }} $</p>
+                            <p>Суммарные возможные затраты (Полные):</p>
+                            <p class="price">{{ expAll }} Руб.</p>
+                            <p class="price">{{ expDollarAll }} $</p>
+                            <p>Количество необходимых исследований и общая статистика по стоимости анализа и аналитики возможности обнаружения нефти</p>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Тип исследования</th>
+                                    <th>Количество исследований</th>
+                                    <th>Стоимость</th>
+                                    <th>Стоимость в сумме</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for search in searchs.data %}
+                                    <tr>
+                                        <td>{{ search.name }}</td>
+                                        <td>{{ search.count }}</td>
+                                        <td>{{ search.cost }}</td>
+                                        <td>{{ search.y }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <p>There are no athletes. Only computer programmers.</p>
+                                {% endfor %}
+                                <tr>
+                                    <td>Сумма</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{ searchs.allSum }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <hr>
+                            <div id="additional_info">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -102,11 +188,7 @@
     <script>
         $(document).ready(function() {
 
-            $( function() {
-                $( "#tabs" ).tabs();
-            } );
-
-            $('#select_well').on('change', function () {
+            $('.select_well').on('change', function () {
                 $(this).closest('form').submit();
             });
 
@@ -194,9 +276,54 @@
                     ]
                 }]
             });
+
+
+            var json_string = unescape("{{idss | safe | escapejs}}");
+            var json_data = JSON.parse(json_string);
+
+            let data = json_data;
+            const piece = 500/data.height;
+
+            function numberToColorRgb(i) {
+                // we calculate red and green
+                var red = Math.floor(255 - (255 * i/1.5));
+                var green = Math.floor(255 * i/1.5);
+                // we format to css value and return
+                return 'rgb('+red+','+green+',0)'
+            }
+
+            data.data.forEach(function(element, key) {
+                let pix = element.height*piece;
+                $('#graph', '.container').append('<div id="element_'+key+'" attr-key="'+key+'" style="height:' + pix + 'px;background-color:'+numberToColorRgb(element.percent)+'; margin-top: 1px"></div>');
+                if (key === 0) {
+                    element.labs.forEach(function(el, k) {
+                        $('.text', '#info').append('<div>'+el.value+'</div>');
+                    });
+                }
+            });
+
+            $('[id ^= element_]').on('click', function() {
+                let element_key = $(this).attr('attr-key'),
+                    element = data.data[element_key];
+                $('.text > div', '#info').remove();
+                element.labs.forEach(function(el, k) {
+                    $('.text', '#info').append('<div>' + el.value + '</div>');
+                })
+            });
+
+
+            $('.link-1').on('click', function () {
+                $('#tabs-1').show();
+                $('.link-2').removeClass('active');
+                $('.link-1').addClass('active');
+                $('#tabs-2').hide();
+            })
+            $('.link-2').on('click', function () {
+                $('#tabs-2').show();
+                $('.link-1').removeClass('active');
+                $('.link-2').addClass('active');
+                $('#tabs-1').hide();
+            })
         });
-
-
-
     </script>
 {% endblock %}

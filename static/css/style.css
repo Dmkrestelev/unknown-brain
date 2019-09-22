@@ -4,6 +4,7 @@
 }
 body {
     background: rgb(250, 249, 255);
+    margin: 0;
 }
 .ui-tabs .ui-tabs-panel {
    background: rgb(250, 249, 255) !important;
@@ -40,23 +41,18 @@ th:first-child, td:first-child {
     flex-direction:row;
     justify-content: space-between;
 }
-.flex-container > * { margin: 0 10px; }
+.flex-container > * { margin: 0 }
 
 .first {
-    min-width: 480px;
     flex-grow: 5;
+    margin-right: 20px;
 }
 .second {
     flex-grow: 5;
+    width: calc(70% - 20px);
 }
 #tabs div {
     padding: 20px 20px;
-}
-h1 {
-    padding-left: 30px;
-}
-h2 {
-    padding-left: 20px;
 }
 .first, .second {
     background: white;
@@ -66,7 +62,6 @@ h2 {
    padding-left: 0px;
 }
 #tabs-2 p, #tabs-1 p {
-    padding-left: 30px;
     color: gray;
 }
 .table_block {
@@ -107,8 +102,8 @@ p.price {
 }
 .profit_block {
     box-shadow: 0 0 4px rgba(0,0,0,0.2);
-    margin-left: 31px;
     background: white;
+    margin: 20px 0;
 }
 #tabs-2 .profit_block p {
     padding-left: 0;
@@ -119,6 +114,7 @@ p.price {
 }
 .first {
     height: 100%;
+    width: 30%;
 }
 .flex-container-2 {
     display: flex;
@@ -129,4 +125,131 @@ p.price {
 }
 .second_fc_2 {
     flex-grow: 5;
+}
+
+#tabs-1 {
+    display: none;
+}
+
+/**/
+.container {
+    position: relative;
+    width: calc(81% - 20px);
+    height: 100%;
+    display: inline-block;
+    float: right;
+    margin-bottom: 20px;
+}
+
+.tab2-container {
+    margin-left: 20px;
+}
+
+#tabs-2 .container {
+    right: 20px;
+}
+
+#menu {
+    position: fixed;
+    height: 100%;
+    width: 19%;
+    background: #1C1C1C;
+    color: #F5F5F5;
+}
+#menu .logo {
+    position: relative;
+    height: 200px;
+    text-align: center;
+}
+#menu .logo > img {
+    border-radius: 50%; /* Радиус скругления */
+    box-shadow: 0 0 0 3px green, 0 0 13px #333; /* Параметры теней */
+    width: 120px;
+    height: 120px;
+}
+#menu .tabs > div {
+    position: relative;
+    height: 40px;
+    cursor: pointer;
+}
+#menu .tabs a {
+    color: #F5F5F5;
+}
+#menu .tabs > div.active,
+#menu .tabs > div:hover {
+    -webkit-box-shadow: 0px 0.5px 0px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0px 0.5px 0px rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0.5px 0px rgba(0, 0, 0, 0.8);
+    background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+    background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+    background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+    background-image: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+    background-image: linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+}
+#graph_wrap {
+    box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    background: white;
+    width: 350px;
+    display: inline-block;
+    position: relative;
+    height: 600px;
+    margin-top: 20px;
+}
+.container #graph {
+    z-index: 1;
+    width: 80px;
+    height: 400px;
+    top: 39px;
+    left: 52px;
+    position: absolute;
+}
+.container #graph > div {
+    cursor: pointer;
+}
+.container #graph > div:hover {
+    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.8);
+    background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+    background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+    background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+    background-image: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+    background-image: linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+}
+.container .setka {
+    top: 0;
+    left: 0;
+}
+.container #info {
+    width: calc(100% - 390px);
+    float: right;
+    display: inline-block;
+    position: relative;
+    box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    background: white;
+    right: 20px;
+    margin-top: 20px;
+}
+.container .text {
+    padding: 20px;
+}
+footer {
+    bottom: 0;
+    color: #F5F5F5;
+    background: #1C1C1C;
+    height: 100px;
+    position: relative;
+}
+.center {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    left: 50%;
+}
+.footer {
+    bottom: 0;
+    right: 20px;
+    font-size: 12px;
+    position: absolute;
 }
