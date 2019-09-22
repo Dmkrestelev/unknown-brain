@@ -1,0 +1,15 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {% include "header.html" %}
+</head>
+<body>
+    {% block content %}
+
+    {% endblock %}
+    {% block footer %}
+        {% include "footer.html" %}
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div id="tabs">
+        <ul class="menu">
+            <li><a href="#tabs-1">Эксперт</a></li>
+            <li><a href="#tabs-2">Менеджер</a></li>
+        </ul>
+        <div id="tabs-1">
+            <h1>Эксперт</h1>
+            <p>Вкладка предназначенная для экспертного анализа месторождения нефти</p>
+            <form method="get">
+                <label for="well">Выберите скважину</label>
+                <select name="well" id="select_well">
+                    <option value="1">1 скважина</option>
+                    <option value="2">2 скважина</option>
+                    <option value="3">3 скважина</option>
+                </select>
+                {% csrf_token %}
+            </form>
+            <div>
+                {% for item in data %}
+                    {{ item.percent }}
+                    <hr>
+                {% empty %}
+                    <p>There are no athletes. Only computer programmers.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="tabs-2">
+            <h1>Менеджер</h1>
+            <p>Вкладка предназначенная для ценностного анализа стоимости добычи нефтерождения</p>
+            <div class="profit_block">
+                <h3>Прибыль</h3>
+                <p>Суммарная возможная выручка:</p>
+                <p class="price">{{ profitCost }} Руб.</p>
+                <p class="price">{{ profitСostDollar }} $</p>
+
+                <div id="profit_exp">
+                </div>
+
+            </div>
+            <div class="flex-container">
+                <div class="first">
+                    <h3>Выручка</h3>
+                    <p>Суммарная возможная выручка:</p>
+                    <p class="price">{{ cost }} Руб.</p>
+                    <p class="price">{{ costDollar }} $</p>
+                    <p>Общая длинна месторождения</p>
+                    <p class="price">{{ height }} м</p>
+                    <p>Цена нефти за 1 тонну</p>
+                    <p class="price">{{ OilPrice }} руб</p>
+                    <p>Преимущественный тип нефти</p>
+                    <p class="price">{{ type }} </p>
+                </div>
+                <div class="second">
+                    <h3>Затраты</h3>
+                    <p>Суммарные возможные затраты:</p>
+                    <p class="price">{{ exp }} Руб.</p>
+                    <p class="price">{{ expDollar }} $</p>
+                    <p>Количество необходимых исследований и общая статистика по стоимости анализа и аналитики возможности обнаружения нефти</p>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Тип исследования</th>
+                            <th>Количество исследований</th>
+                            <th>Стоимость</th>
+                            <th>Стоимость в сумме</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for search in searchs.data %}
+                            <tr>
+                                <td>{{ search.name }}</td>
+                                <td>{{ search.count }}</td>
+                                <td>{{ search.cost }}</td>
+                                <td>{{ search.y }}</td>
+                            </tr>
+                        {% empty %}
+                            <p>There are no athletes. Only computer programmers.</p>
+                        {% endfor %}
+                        <tr>
+                            <td>Сумма</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ searchs.allSum }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                    <div id="additional_info">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+            $( function() {
+                $( "#tabs" ).tabs();
+            } );
+
+            $('#select_well').on('change', function () {
+               $(this).closest('form').submit();
+            });
+
+            var json_string = unescape("{{jsonSearch | safe | escapejs}}");
+            var json_data = JSON.parse(json_string);
+
+            $('#additional_info').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Количество необходимых исследований + стоимостная оценка'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y:.1f} Руб</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Brands',
+                    colorByPoint: true,
+                    data: json_data
+                }]
+            });
+
+            $('#profit_exp').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Прибыль<br>{{ profitCost }}',
+                    align: 'center',
+                    verticalAlign: 'middle',
+                    y: 60
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y:.1f} Руб.</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        dataLabels: {
+                            enabled: true,
+                            distance: -50,
+                            style: {
+                                fontWeight: 'bold',
+                                color: 'white'
+                            }
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '75%'],
+                        size: '110%'
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Browser share',
+                    innerSize: '50%',
+                    data: [
+                        ['Выручка', parseFloat("{{ cost }}".replace(/\s/g, ''))],
+                        ['Затраты', parseFloat("{{ exp }}".replace(/\s/g, ''))],
+                        {
+                            name: 'Other',
+                            y: 7.61,
+                            dataLabels: {
+                                enabled: false
+                            }
+                        }
+                    ]
+                }]
+            });
+        });
+
+
+
+    </script>
+{% endblock %}

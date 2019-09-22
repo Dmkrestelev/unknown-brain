@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Список событий</h2>
+    {% for event in events %}
+        <p>123</p>
+    {% empty %}
+        <p>There are no athletes. Only computer programmers.</p>
+    {% endfor %}
+
+{% endblock %}
