@@ -74,18 +74,20 @@ def get_data(wellid=None):
     x = 0
     for i in idsss:
         x = x + 1
+        if x % 2:
+            continue
         data_.append(
             {
-                'percent': i,
-                'labs': [  # Исследования
+                "percent": int(i),
+                "labs": [  # Исследования
                     {
-                        'value': 'A',
+                        "value": "A",
                     },
                     {
-                        'value': 'B',
+                        "value": "B",
                     },
                     {
-                        'value': 'C',
+                        "value": "C",
                     },
                 ],
             }
@@ -218,7 +220,7 @@ def index(request):
             'type': 'SAND',
             'ids': ids,
             'h': h,
-            'idss': idss,
+            'idss': json.dumps(idss),
         }
     else:
         return render_to_response('expert/index.html', {'ids': ids})  # Не обрабатываем

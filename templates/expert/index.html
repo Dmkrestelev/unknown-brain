@@ -277,24 +277,15 @@
                 }]
             });
 
-
             var json_string = unescape("{{idss | safe | escapejs}}");
             var json_data = JSON.parse(json_string);
 
-            let data = json_data;
-            const piece = 500/data.height;
+            const piece = 500/json_data.height;
 
-            function numberToColorRgb(i) {
-                // we calculate red and green
-                var red = Math.floor(255 - (255 * i/1.5));
-                var green = Math.floor(255 * i/1.5);
-                // we format to css value and return
-                return 'rgb('+red+','+green+',0)'
-            }
-
-            data.data.forEach(function(element, key) {
-                let pix = element.height*piece;
-                $('#graph', '.container').append('<div id="element_'+key+'" attr-key="'+key+'" style="height:' + pix + 'px;background-color:'+numberToColorRgb(element.percent)+'; margin-top: 1px"></div>');
+            json_data.data.forEach(function(element, key) {
+                let pix = 4,
+                    color = (element.percent) ? 'rgb(0, 255, 0)' : 'rgb(255, 0, 0)';
+                $('#graph', '.container').append('<div id="element_'+key+'" attr-key="'+key+'" style="height:' + pix + 'px;background-color:'+color+'; margin-top: 1px"></div>');
                 if (key === 0) {
                     element.labs.forEach(function(el, k) {
                         $('.text', '#info').append('<div>'+el.value+'</div>');
